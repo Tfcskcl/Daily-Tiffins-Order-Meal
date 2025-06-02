@@ -1,111 +1,179 @@
-<!-- ✅ FINAL index.html with Add to Cart + Razorpay Integration on Click -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Your Cart – Daily Tiffins</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Online Food Deliver</title>
-  <link rel="shortcut icon" href="img/Chef-Hire-Logo-Final-2.png" type="image/x-icon">
-  <link rel="stylesheet" href="css/font-awesome/css/font-awesome.css">
-  <link rel="stylesheet" href="css/hover-min.css">
-  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f9f9f9;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .cart-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      background: #fff;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+
+    .cart-table th, .cart-table td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: center;
+    }
+
+    .cart-table th {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .btn {
+      padding: 8px 14px;
+      margin-top: 10px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-update {
+      background: #ffc107;
+      color: #000;
+    }
+
+    .btn-remove {
+      background: #dc3545;
+      color: white;
+    }
+
+    .btn-pay {
+      background: #28a745;
+      color: white;
+      display: block;
+      margin: 20px auto;
+    }
+
+    #total-price {
+      text-align: right;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .qty-input {
+      width: 50px;
+      text-align: center;
+    }
+
+    .empty-message {
+      text-align: center;
+      font-size: 18px;
+      margin-top: 50px;
+    }
+  </style>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 <body>
-  <!-- Navigation Section Start -->
-  <header class="navbar">
-    <nav id="site-top-nav" class="navbar-menu navbar-fixed-top">
-      <div class="container">
-        <div class="logo">
-          <a href="index.html" title="Logo">
-            <img src="img/Daily_Tiffin_226x223.png" alt="Logo" height="90" width="50" class="img-responsive">
-          </a>
-        </div>
-        <div class="menu text-right">
-          <ul>
-            <li><a class="hvr-underline-from-center" href="index.html">Home</a></li>
-            <li><a class="hvr-underline-from-center" href="contact.html">Contact</a></li>
-            <li><a class="hvr-underline-from-center" href="register.html">Register</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </header>
-  <!-- Navigation Section End -->
 
-  <!-- Food Search Section Start -->
-  <section class="food-search text-center">
-    <div class="container">
-      <form action="food-search.html">
-        <input type="search" placeholder="Search for food..." required>
-        <input type="submit" value="Search" class="btn-primary">
-      </form>
-    </div>
-  </section>
-  <!-- Food Search Section End -->
+  <h2>Your Cart</h2>
+  <div id="cart-container"></div>
+  <h3 id="total-price"></h3>
+  <button id="pay-btn" class="btn btn-pay">Pay Now</button>
 
-  <!-- Foods Section Start -->
-  <section class="food-menu">
-    <div class="container">
-      <h2 class="text-center">Daily Tiffins Menu</h2>
-      <div class="heading-border"></div>
-      <div class="grid-2">
-
-        <!-- Sample Product -->
-        <div class="food-menu-box">
-          <form class="product-form">
-            <h4>Veg 🟢</h4><br>
-            <div class="food-menu-img">
-              <img src="img/eco meal veg.webp" alt="Eco Meal" height="70" width="110" class="img-responsive img-curve">
-            </div>
-            <div class="food-menu-desc">
-              <h4>Eco Meal</h4>
-              <p class="food-price">₹125</p>
-              <p class="food-details">Paneer Curry : 100 gm, Dry Sabji: 100 gm, Butter roti: 4 nos., Rice : 80 gm, Dal : 100 gm, Salad.</p>
-              <input type="hidden" class="product-name" value="Eco Meal Veg">
-              <input type="hidden" class="product-price" value="125">
-              Quantity: <input type="number" class="product-qty" value="1" min="1"><br><br>
-              <button type="button" class="btn add-to-cart">Add to cart</button>
-            </div>
-          </form>
-        </div>
-
-        <!-- Duplicate this block for all products and change values accordingly -->
-        <!-- Example: Premium Meal, Non-Veg Meal, Package 1, Package 2 -->
-
-      </div>
-    </div>
-  </section>
-
-  <!-- Razorpay Payment Trigger Script -->
   <script>
+    function loadCart() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      if (cart.length === 0) {
+        $('#cart-container').html('<p class="empty-message">🛒 Your cart is empty!</p>');
+        $('#pay-btn').hide();
+        $('#total-price').hide();
+        return;
+      }
+
+      let table = `<table class="cart-table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Price (₹)</th>
+            <th>Quantity</th>
+            <th>Subtotal (₹)</th>
+            <th>Actions</th>
+          </tr>
+        </thead><tbody>`;
+
+      let total = 0;
+      cart.forEach((item, index) => {
+        const subtotal = item.qty * item.price;
+        total += subtotal;
+
+        table += `
+          <tr>
+            <td>${item.name}</td>
+            <td>${item.price}</td>
+            <td>
+              <input type="number" class="qty-input" min="1" value="${item.qty}" data-index="${index}">
+            </td>
+            <td>${subtotal}</td>
+            <td>
+              <button class="btn btn-update" data-index="${index}">Update</button>
+              <button class="btn btn-remove" data-index="${index}">Remove</button>
+            </td>
+          </tr>`;
+      });
+
+      table += `</tbody></table>`;
+      $('#cart-container').html(table);
+      $('#total-price').text("Total: ₹" + total);
+    }
+
     $(document).ready(function () {
-      $('.add-to-cart').on('click', function () {
-        const form = $(this).closest('.product-form');
-        const name = form.find('.product-name').val();
-        const price = parseFloat(form.find('.product-price').val());
-        const qty = parseInt(form.find('.product-qty').val());
-        const total = price * qty * 100; // in paisa
+      loadCart();
+
+      $(document).on('click', '.btn-update', function () {
+        const index = $(this).data('index');
+        const qty = parseInt($(`.qty-input[data-index="${index}"]`).val());
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        if (qty > 0) {
+          cart[index].qty = qty;
+          localStorage.setItem('cart', JSON.stringify(cart));
+          loadCart();
+        }
+      });
+
+      $(document).on('click', '.btn-remove', function () {
+        const index = $(this).data('index');
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart.splice(index, 1);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        loadCart();
+      });
+
+      $('#pay-btn').on('click', function () {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        if (cart.length === 0) return alert("Cart is empty!");
+
+        const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+        const itemSummary = cart.map(item => `${item.qty} x ${item.name}`).join(", ");
 
         const options = {
-          key: "rzp_live_pI5PHJWTQwv2rS", // replace with live or test key
-          amount: total,
+          key: "rzp_live_pI5PHJWTQwv2rS", // replace with your key
+          amount: total * 100,
           currency: "INR",
           name: "Daily Tiffins",
-          description: `${qty} x ${name}`,
+          description: itemSummary,
           image: "img/Chef-Hire-Logo-Final-2.png",
           handler: function (response) {
             alert("✅ Payment Successful!\nPayment ID: " + response.razorpay_payment_id);
-          },
-          prefill: {
-            name: "",
-            email: "",
-            contact: ""
-          },
-          theme: {
-            color: "#007bff"
+            localStorage.removeItem('cart');
+            window.location.href = "thankyou.html";
           }
         };
 
@@ -115,14 +183,5 @@
     });
   </script>
 
-  <!-- Footer -->
-  <section class="copyright">
-    <div class="container text-center">
-      <p>All rights reserved. Design By <a href="#">TFC's Kitchen Solutions Limited.</a></p>
-    </div>
-    <a id="back-to-top" class="btn-primary">
-      <i class="fa fa-angle-double-up"></i>
-    </a>
-  </section>
 </body>
 </html>

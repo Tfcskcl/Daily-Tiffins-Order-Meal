@@ -176,42 +176,32 @@
   
    
 
- 
-  <!-- Razorpay Payment Trigger Script -->
-  <script>
-    $(document).ready(function () {
-      $('.add-to-cart').on('click', function () {
-        const form = $(this).closest('.product-form');
-        const name = form.find('.product-name').val();
-        const price = parseFloat(form.find('.product-price').val());
-        const qty = parseInt(form.find('.product-qty').val());
-        const total = price * qty * 100; // in paisa
+ <!-- Add to Cart Script -->
+<script>
+  $(document).ready(function () {
+    $('.add-to-cart').on('click', function () {
+      const form = $(this).closest('.product-form');
+      const name = form.find('.product-name').val();
+      const price = parseFloat(form.find('.product-price').val());
+      const qty = parseInt(form.find('.product-qty').val());
 
-        const options = {
-          key: "rzp_live_pI5PHJWTQwv2rS", // replace with live or test key
-          amount: total,
-          currency: "INR",
-          name: "Daily Tiffins",
-          description: `${qty} x ${name}`,
-          image: "img/Chef-Hire-Logo-Final-2.png",
-          handler: function (response) {
-            alert("✅ Payment Successful!\nPayment ID: " + response.razorpay_payment_id);
-          },
-          prefill: {
-            name: "",
-            email: "",
-            contact: ""
-          },
-          theme: {
-            color: "#007bff"
-          }
-        };
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-        const rzp = new Razorpay(options);
-        rzp.open();
-      });
+      const existing = cart.find(item => item.name === name);
+      if (existing) {
+        existing.qty += qty;
+      } else {
+        cart.push({ name, price, qty });
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert('✅ Item added to cart!');
+      window.location.href = "order.html";
     });
-  </script>
+  });
+</script>
+
+
 
   <!-- Footer -->
   <section class="copyright">
