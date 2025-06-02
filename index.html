@@ -1,211 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Food Deliver</title>
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="img/Chef-Hire-Logo-Final-2.png" type="image/x-icon">
-    <!-- Fontawesome CSS -->
-    <link rel="stylesheet" href="css/font-awesome/css/font-awesome.css">
-    <!-- Hover CSS -->
-    <link rel="stylesheet" href="css/hover-min.css">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Food Deliver</title>
+  <link rel="shortcut icon" href="img/Chef-Hire-Logo-Final-2.png" type="image/x-icon">
+  <link rel="stylesheet" href="css/font-awesome/css/font-awesome.css">
+  <link rel="stylesheet" href="css/hover-min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 <body>
-    <!-- Navigation Section Start -->
-    <header class="navbar">
-        <nav id="site-top-nav" class="navbar-menu navbar-fixed-top">
-            <div class="container">
-                <!-- logo -->
-                <div class="logo">
-                    <a href="index.html" title="Logo">
-                        <img src="img/Daily_Tiffin_226x223.png" alt="Logo" height="90" width="50" class="img-responsive">
-                        
-                    </a>
-                </div>
-                <!-- Main Menu -->
-                <div class="menu text-right">
-                    <ul>
-                        <li><a class="hvr-underline-from-center" href="index.html">Home</a></li>
-                        <li><a class="hvr-underline-from-center" href="order.html">Order</a></li>
-                        <li><a class="hvr-underline-from-center" href="contact.html">Contact</a></li>
-                        <li><a class="hvr-underline-from-center" href="register.html">Register</a></li>
+   <!-- Navigation Section Start -->
+   <header class="navbar">
+    <nav id="site-top-nav" class="navbar-menu navbar-fixed-top">
+      <div class="container">
+        <div class="logo">
+          <a href="index.html" title="Logo">
+            <img src="img/Daily_Tiffin_226x223.png" alt="Logo" height="90" width="50" class="img-responsive">
+          </a>
+        </div>
+        <div class="menu text-right">
+          <ul>
+            <li><a class="hvr-underline-from-center" href="index.html">Home</a></li>
+            <li><a class="hvr-underline-from-center" href="contact.html">Contact</a></li>
+            <li><a class="hvr-underline-from-center" href="register.html">Register</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <!-- Navigation Section End -->
+  <!-- Food Search Section Start -->
+  <section class="food-search text-center">
+    <div class="container">
+      <form action="food-search.html">
+        <input type="search" placeholder="Search for food..." required>
+        <input type="submit" value="Search" class="btn-primary">
+      </form>
+    </div>
+  </section>
+  <!-- Food Search Section End -->
 
-                        <li>
-                          
-                          
-                        </li>
-                    </ul>
-                </div>
+<!-- Foods Section Start -->
+<section class="food-menu">
+    <div class="container">
+      <h2 class="text-center">Daily Tiffins Menu</h2>
+      <div class="heading-border"></div>
+      <div class="grid-2">
+
+        <!-- Sample Product -->
+        <div class="food-menu-box">
+          <form class="product-form">
+            <h4>Veg 🟢</h4><br>
+            <div class="food-menu-img">
+              <img src="img/eco meal veg.webp" alt="Eco Meal" height="70" width="110" class="img-responsive img-curve">
             </div>
-        </nav>
-    </header>
-    <!-- Navigation Section End -->
+            <div class="food-menu-desc">
+              <h4>Eco Meal</h4>
+              <p class="food-price">₹125</p>
+              <p class="food-details">Paneer Curry : 100 gm, Dry Sabji: 100 gm, Butter roti: 4 nos., Rice : 80 gm, Dal : 100 gm, Salad.</p>
+              <input type="hidden" class="product-name" value="Eco Meal-Veg">
+              <input type="hidden" class="product-price" value="125">
+              Quantity: <input type="number" class="product-qty" value="1" min="1"><br><br>
+              <button type="button" class="btn add-to-cart">Add to cart</button>
+            </div>
+          </form>
+        </div>
 
-    <!-- Food Search Section Start -->
-    <section class="food-search text-center" >
-        <div class="container">
-            <form action="food-search.html">
-                <input type="search" placeholder="Search for food..." required>
-                <input type="submit" value="Search" class="btn-primary">
+        <div class="food-menu-box">
+            <form class="product-form">
+              <h4>Veg 🟢</h4><br>
+              <div class="food-menu-img">
+                <img src="img/premium meal veg.webp" alt="Eco Meal" height="70" width="110" class="img-responsive img-curve">
+              </div>
+              <div class="food-menu-desc">
+                <h4>Premium Meal</h4>
+                <p class="food-price">₹179</p>
+                <p class="food-details">Paneer Curry: 100 gm, Dry Sabji: 100 gm, Butter Roti: 4 no., Rice: 80 gm, Dal tadka: 100 gm, Curd /Raita: 1 cup, Sweet : 1 portion, Salad, Papad, Aachar.</p>
+                <input type="hidden" class="product-name" value="Premium Meal-Veg">
+                <input type="hidden" class="product-price" value="179">
+                Quantity: <input type="number" class="product-qty" value="1" min="1"><br><br>
+                <button type="button" class="btn add-to-cart">Add to cart</button>
+              </div>
             </form>
-        </div>
-    </section>
-    <!-- Food Search Section End -->
-
-
-
-    <!-- Foods Section Start -->
-    <section class="food-menu">
-        <div class="container">
-            <h2 class="text-center">Daily Tiffins Menu</h2>
-            <div class="heading-border"></div>
-            <div class="grid-2">
-                <div class="food-menu-box">
-                    <form action="">
-                        <h4>Veg 🟢</h4>
-                        <br>
-                        <div class="food-menu-img">
-                            <img src="img/eco meal veg.webp" alt="" height="70" width="110" class="img-responsive img-curve">
-                        </div>
-                      
-                        <div class="food-menu-desc">
-                            <h4>Eco Meal</h4>
-                            <p class="food-price">₹125</p>
-                            <p class="food-details">Paneer Curry : 100 gm, Dry Sabji: 100 gm, Butter roti: 4 nos., Rice : 80 gm, Dal : 100 gm, Salad.</p>
-                            <input type="number" value="1" min="1">
-                            <br>
-                            <br>
-                          <a href="order.html" class="btn">Add to cart</a>
-                        </div>
-                    </form>
-                </div>
-                <div class="food-menu-box">
-                    <form action="">
-                        <h4>Veg 🟢</h4>
-                        <br>
-                        <div class="food-menu-img">
-                            <img src="img/premium meal veg.webp" alt="" height="70" width="110" class="img-responsive img-curve">
-                        </div>
-                        <div class="food-menu-desc">
-                            <h4>Premium Meal</h4>
-                            <p class="food-price">₹179</p>
-                            <p class="food-details">Paneer Curry: 100 gm, Dry Sabji: 100 gm, Butter Roti: 4 no., Rice: 80 gm, Dal tadka: 100 gm, Curd /Raita: 1 cup, Sweet : 1 portion, Salad, Papad, Aachar.
-                            </p>
-                            <input type="number" value="1" min="1">
-                            <br>
-                            <br>
-                          <a href="order.html" class="btn">Add to cart</a>
-                        </div>
-                    </form>
-                </div>
-                <div class="food-menu-box">
-                    <form action="">
-                        <h4>Non-Veg 🔴</h4>
-                        <br>
-                        <div class="food-menu-img">
-                            <img src="img/eco meal nonveg.jpeg" alt="" height="70" width="110" class="img-responsive img-curve">
-                        </div>
-                        <div class="food-menu-desc">
-                            <h4>Eco Meal</h4>
-                            <p class="food-price">₹149</p>
-                            <p class="food-details">Chicken Curry : 180 gm, Butter Roti: 4 nos. Rice: 80 gm, Dal : 100 gm, Salad.</p>
-                            <input type="number" value="1" min="1">
-                            <br>
-                            <br>
-                          <a href="order.html" class="btn">Add to cart</a>
-                        </div>
-                    </form>
-                </div>
-                <div class="food-menu-box">
-                    <form action="">
-                        <h4>Non-Veg 🔴</h4>
-                        <br>
-                        <div class="food-menu-img">
-                            <img src="img/premium non veg.avif" alt="" height="70" width="110" class="img-responsive img-curve">
-                        </div>
-                        <div class="food-menu-desc">
-                            <h4>Premium Meal</h4>
-                            <p class="food-price">₹225</p>
-                            <p class="food-details">Chicken Curry: 180 gm, Chicken Starter: 1 portion, Butter Roti: 4 Roti, Rice: 100 gm, Dal 100 gm, Curd / Raita: 1 cup / 80 gm, Sweet: 1 portion, Salad, Papad, Aachar.</p>
-                            <input type="number" value="1" min="1">
-                            <br>
-                            <br>
-                          <a href="order.html" class="btn">Add to cart</a>
-                        </div>
-                    </form>
-                </div>
-               
-               
-            </div>
-        </div>
+          </div><div class="food-menu-box">
+            <form class="product-form">
+              <h4>Non-Veg 🔴</h4><br>
+              <div class="food-menu-img">
+                <img src="img/eco meal nonveg.jpeg" alt="Eco Meal" height="70" width="110" class="img-responsive img-curve">
+              </div>
+              <div class="food-menu-desc">
+                <h4>Eco Meal</h4>
+                <p class="food-price">₹149</p>
+                <p class="food-details">Chicken Curry : 180 gm, Butter Roti: 4 nos. Rice: 80 gm, Dal : 100 gm, Salad.</p>
+                <input type="hidden" class="product-name" value="Eco Meal-NonVeg">
+                <input type="hidden" class="product-price" value="149">
+                Quantity: <input type="number" class="product-qty" value="1" min="1"><br><br>
+                <button type="button" class="btn add-to-cart">Add to cart</button>
+              </div>
+            </form>
+          </div><div class="food-menu-box">
+            <form class="product-form">
+              <h4>Non-Veg 🔴</h4><br>
+              <div class="food-menu-img">
+                <img src="img/eco meal veg.webp" alt="Eco Meal" height="70" width="110" class="img-responsive img-curve">
+              </div>
+              <div class="food-menu-desc">
+                <h4>Premium Meal</h4>
+                <p class="food-price">₹225</p>
+                <p class="food-details">Chicken Curry: 180 gm, Chicken Starter: 1 portion, Butter Roti: 4 Roti, Rice: 100 gm, Dal 100 gm, Curd / Raita: 1 cup / 80 gm, Sweet: 1 portion, Salad, Papad, Aachar.</p>
+                <input type="hidden" class="product-name" value="Premium Meal- NonVeg">
+                <input type="hidden" class="product-price" value="225">
+                Quantity: <input type="number" class="product-qty" value="1" min="1"><br><br>
+                <button type="button" class="btn add-to-cart">Add to cart</button>
+              </div>
+            </form>
       
-    </section>
-    <!-- Foods Section End -->
-      <!-- Foods Section Start -->
-    <section class="food-menu">
-        <div class="container">
-            <h2 class="text-center">Chef-hire Menu</h2>
-            <div class="heading-border"></div>
-            <div class="grid-2">
-                <div class="food-menu-box">
-                    <form action="">
-                        <div class="food-menu-img">
-                            <img src="img/package 1.webp" alt="" class="img-responsive img-curve">
-                        </div>
-                        <div class="food-menu-desc">
-                            <h4>  Package 1</h4>
-                            
-                            <p class="food-price">₹999</p>
-                            <p class="food-details">per person + taxes
-                                Lunch + Dinner (totally customized) (At Venue / Farm house / Home Stay).</p>
-                            <input type="number" value="1" min="1">
-                            <br>
-                            <br>
-                          <a href="order.html" class="btn">Add to cart</a>
-                        </div>
-                    </form>
-                </div>
-                <div class="food-menu-box">
-                    <form action="">
-                        <div class="food-menu-img">
-                            <img src="img/package 2.jpeg" alt="" height="70" width="110" class="img-responsive img-curve">
-                        </div>
-                        <div class="food-menu-desc">
-                            <h4>Package 2
-</h4>
-                            <p class="food-price">₹1299</p>
-                            <p class="food-details">                                Breakfast + Lunch + hi tea + Dinner ( Totally Customized) (At Venue / Farm House / Home stays)</p>
-                            <input type="number" value="1" min="1">
-                            <br>
-                            <br>
-                          <a href="order.html" class="btn">Add to cart</a>
-                        </div>
-                    </form>
-                </div>
-              
-               
+          </div>
+         
+      </div>
+    </div>
+  </section>
+
+<!-- Foods Section Start -->
+<section class="food-menu">
+    <div class="container">
+      <h2 class="text-center">Chef-hire Menu</h2>
+      <div class="heading-border"></div>
+      <div class="grid-2">
+
+        <!-- Sample Product -->
+        <div class="food-menu-box">
+          <form class="product-form">
+     
+            <div class="food-menu-img">
+              <img src="img/eco meal veg.webp" alt="Eco Meal" height="70" width="110" class="img-responsive img-curve">
             </div>
+            <div class="food-menu-desc">
+              <h4> Package 1</h4>
+              <p class="food-price">₹999</p>
+              <p class="food-details">Per person + taxes Lunch + Dinner (totally customized) (At Venue / Farm house / Home Stay).</p>
+              <input type="hidden" class="product-name" value="Package 1">
+              <input type="hidden" class="product-price" value="999">
+              Quantity: <input type="number" class="product-qty" value="1" min="1"><br><br>
+              <button type="button" class="btn add-to-cart">Add to cart</button>
+            </div>
+          </form>
         </div>
-      
-    </section>
-    <!-- Foods Section End -->
+
+        <div class="food-menu-box">
+            <form class="product-form">
+            
+              <div class="food-menu-img">
+                <img src="img/premium meal veg.webp" alt="Eco Meal" height="70" width="110" class="img-responsive img-curve">
+              </div>
+              <div class="food-menu-desc">
+                <h4>Package 2</h4>
+                <p class="food-price">₹1299</p>
+                <p class="food-details">Breakfast + Lunch + hi tea + Dinner ( Totally Customized) (At Venue / Farm House / Home stays).</p>
+                <input type="hidden" class="product-name" value="Package 2">
+                <input type="hidden" class="product-price" value="1299">
+                Quantity: <input type="number" class="product-qty" value="1" min="1"><br><br>
+                <button type="button" class="btn add-to-cart">Add to cart</button>
+              </div>
+            </form>
+          </div>
+       
+         
+      </div>
+    </div>
+  </section>
+  
+   
 
  
+  <!-- Razorpay Payment Trigger Script -->
+  <script>
+    $(document).ready(function () {
+      $('.add-to-cart').on('click', function () {
+        const form = $(this).closest('.product-form');
+        const name = form.find('.product-name').val();
+        const price = parseFloat(form.find('.product-price').val());
+        const qty = parseInt(form.find('.product-qty').val());
+        const total = price * qty * 100; // in paisa
 
-    <!-- Copyright Section start -->
-    <section class="copyright">
-        <div class="container text-center">
-            <p>All rights reserved. Design By <a href="#">TFC's Kitchen Solutions Limited.</a></p>
-        </div>
-        <a id="back-to-top" class="btn-primary">
-            <i class="fa fa-angle-double-up"></i>
-        </a>
-    </section>
-    <!-- Copyright Section End -->
+        const options = {
+          key: "rzp_live_pI5PHJWTQwv2rS", // replace with live or test key
+          amount: total,
+          currency: "INR",
+          name: "Daily Tiffins",
+          description: `${qty} x ${name}`,
+          image: "img/Chef-Hire-Logo-Final-2.png",
+          handler: function (response) {
+            alert("✅ Payment Successful!\nPayment ID: " + response.razorpay_payment_id);
+          },
+          prefill: {
+            name: "",
+            email: "",
+            contact: ""
+          },
+          theme: {
+            color: "#007bff"
+          }
+        };
+
+        const rzp = new Razorpay(options);
+        rzp.open();
+      });
+    });
+  </script>
+
+  <!-- Footer -->
+  <section class="copyright">
+    <div class="container text-center">
+      <p>All rights reserved. Design By <a href="#">TFC's Kitchen Solutions Limited.</a></p>
+    </div>
+    <a id="back-to-top" class="btn-primary">
+      <i class="fa fa-angle-double-up"></i>
+    </a>
+  </section>
+</body>
+</html>
+
 
     <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
