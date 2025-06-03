@@ -31,7 +31,7 @@
     }
 
     .cart-table th {
-      background-color: #007bff;
+      background-color: #c97624;
       color: white;
     }
 
@@ -76,7 +76,30 @@
       font-size: 18px;
       margin-top: 50px;
     }
+
+    .datetime-container {
+      max-width: 400px;
+      margin: 20px auto;
+      text-align: center;
+      background: #fff;
+      padding: 15px;
+      border-radius: 6px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+
+    .datetime-container label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+    }
+
+    .datetime-container input {
+      padding: 6px;
+      width: 100%;
+      margin-bottom: 10px;
+    }
   </style>
+
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
@@ -85,6 +108,15 @@
   <h2>Your Cart</h2>
   <div id="cart-container"></div>
   <h3 id="total-price"></h3>
+
+  <div class="datetime-container">
+    <label for="delivery-date">Select Date:</label>
+    <input type="date" id="delivery-date">
+
+    <label for="delivery-time">Select Time:</label>
+    <input type="time" id="delivery-time">
+  </div>
+
   <button id="pay-btn" class="btn btn-pay">Pay Now</button>
 
   <script>
@@ -94,6 +126,7 @@
         $('#cart-container').html('<p class="empty-message">🛒 Your cart is empty!</p>');
         $('#pay-btn').hide();
         $('#total-price').hide();
+        $('.datetime-container').hide();
         return;
       }
 
@@ -131,6 +164,9 @@
       table += `</tbody></table>`;
       $('#cart-container').html(table);
       $('#total-price').text("Total: ₹" + total);
+      $('#pay-btn').show();
+      $('#total-price').show();
+      $('.datetime-container').show();
     }
 
     $(document).ready(function () {
@@ -160,15 +196,23 @@
         const cart = JSON.parse(localStorage.getItem('cart')) || [];
         if (cart.length === 0) return alert("Cart is empty!");
 
+        const date = $('#delivery-date').val();
+        const time = $('#delivery-time').val();
+
+        if (!date || !time) {
+          return alert("Please select both delivery date and time before proceeding.");
+        }
+
         const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
         const itemSummary = cart.map(item => `${item.qty} x ${item.name}`).join(", ");
+        const deliveryInfo = `Delivery on ${date} at ${time}`;
 
         const options = {
-          key: "rzp_live_pI5PHJWTQwv2rS", // replace with your key
+          key: "rzp_live_pI5PHJWTQwv2rS", // replace with your Razorpay key
           amount: total * 100,
           currency: "INR",
           name: "Daily Tiffins",
-          description: itemSummary,
+          description: `${itemSummary} | ${deliveryInfo}`,
           image: "img/Chef-Hire-Logo-Final-2.png",
           handler: function (response) {
             alert("✅ Payment Successful!\nPayment ID: " + response.razorpay_payment_id);
