@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Food Deliver</title>
+  <link rel="shortcut icon" href="img/Chef-Hire-Logo-Final-2.png" type="image/x-icon">
+  <link rel="stylesheet" href="css/font-awesome/css/font-awesome.css">
+  <link rel="stylesheet" href="css/hover-min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+   <!-- Navigation Section Start -->
+   <header class="navbar">
+    <nav id="site-top-nav" class="navbar-menu navbar-fixed-top">
+      <div class="container">
+        <div class="logo">
+          <a href="index.html" title="Logo">
+            <img src="img/Daily_Tiffin_226x223.png" alt="Logo" height="90" width="50" class="img-responsive">
+          </a>
+        </div>
+        <div class="menu text-right">
+          <ul>
+            <li><a class="hvr-underline-from-center" href="index.html">Home</a></li>
+            <li><a class="hvr-underline-from-center" href="contact.html">Contact</a></li>
+            <li><a class="hvr-underline-from-center" href="register.html">Register</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <!-- Navigation Section End -->
+  <!-- Food Search Section Start -->
+  <section class="food-search text-center">
+    <div class="container">
+      <form action="food-search.html">
+        <input type="search" placeholder="Search for food..." required>
+        <input type="submit" value="Search" class="btn-primary">
+      </form>
+    </div>
+  </section>
+  <!-- Food Search Section End -->
+
+<!-- Foods Section Start -->
+<section class="food-menu">
+    <div class="container">
+      <h2 class="text-center">Bartender & Cocktail Package 
+      </h2>
+      <div class="heading-border"></div>
+      <div class="grid-2">
+
+        <!-- Sample Product -->
+        <div class="food-menu-box" width="200">
+          <form class="product-form">
+            <h4>Bartender</h4><br>
+            <div class="food-menu-img">
+              <img src="img/bartender.webp" alt="Eco Meal" height="80" width="190" class="img-responsive img-curve">
+            </div>
+            <div class="food-menu-desc">
+              <h4>Bartender & Cocktail Package</h4>
+              <p class="food-price">₹15,999</p>
+              <p class="food-details">
+                Includes a professional bartender, assistant, complete bar setup, and soft drinks/mixers for up to 20 guests. Alcohol to be provided by the client or can be arranged at extra cost..</p>
+              <input type="hidden" class="product-name" value="Eco Meal-Veg">
+              <input type="hidden" class="product-price" value="15999">
+              <br>
+              Quantity: <input type="number" class="product-qty" value="1" min="1"><br><br>
+              <button type="button" class="btn add-to-cart">Add to cart</button>
+            </div>
+          </form>
+        </div>
+
+      
+       
+          </div>
+        
+      
+          </div>
+         
+      </div>
+    </div>
+  </section>
+
+
+  
+   
+
+ <!-- Add to Cart Script -->
+<script>
+  $(document).ready(function () {
+    $('.add-to-cart').on('click', function () {
+      const form = $(this).closest('.product-form');
+      const name = form.find('.product-name').val();
+      const price = parseFloat(form.find('.product-price').val());
+      const qty = parseInt(form.find('.product-qty').val());
+
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+      const existing = cart.find(item => item.name === name);
+      if (existing) {
+        existing.qty += qty;
+      } else {
+        cart.push({ name, price, qty });
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert('✅ Item added to cart!');
+      window.location.href = "order.html";
+    });
+  });
+</script>
+
+
+
+  <!-- Footer -->
+  <section class="copyright">
+    <div class="container text-center">
+      <p>All rights reserved. Design By <a href="#">TFC's Kitchen Solutions Limited.</a></p>
+    </div>
+    <a id="back-to-top" class="btn-primary">
+      <i class="fa fa-angle-double-up"></i>
+    </a>
+  </section>
+</body>
+</html>
+
+
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <!-- Jquery UI -->
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+    <!-- Custom JS -->
+    <script src="js/custom.js"></script>
+</body>
+</html>
