@@ -110,11 +110,8 @@
   <h3 id="total-price"></h3>
 
   <div class="datetime-container">
-    <label for="delivery-date">Select Date:</label>
-    <input type="date" id="delivery-date">
-
-    <label for="delivery-time">Select Time:</label>
-    <input type="time" id="delivery-time">
+    <label for="delivery-datetime">Select Delivery Date & Time:</label>
+    <input type="datetime-local" id="delivery-datetime" min="" required>
   </div>
 
   <button id="pay-btn" class="btn btn-pay">Pay Now</button>
@@ -172,6 +169,11 @@
     $(document).ready(function () {
       loadCart();
 
+      // Set minimum datetime to now
+      const now = new Date();
+      const isoString = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0,16);
+      $('#delivery-datetime').attr('min', isoString);
+
       $(document).on('click', '.btn-update', function () {
         const index = $(this).data('index');
         const qty = parseInt($(`.qty-input[data-index="${index}"]`).val());
@@ -196,16 +198,16 @@
         const cart = JSON.parse(localStorage.getItem('cart')) || [];
         if (cart.length === 0) return alert("Cart is empty!");
 
-        const date = $('#delivery-date').val();
-        const time = $('#delivery-time').val();
-
-        if (!date || !time) {
-          return alert("Please select both delivery date and time before proceeding.");
+        const datetimeInput = $('#delivery-datetime').val();
+        if (!datetimeInput) {
+          return alert("Please select the delivery date and time.");
         }
+
+        const [date, time] = datetimeInput.split("T");
+        const deliveryInfo = `Delivery on ${date} at ${time}`;
 
         const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
         const itemSummary = cart.map(item => `${item.qty} x ${item.name}`).join(", ");
-        const deliveryInfo = `Delivery on ${date} at ${time}`;
 
         const options = {
           key: "rzp_live_pI5PHJWTQwv2rS", // replace with your Razorpay key
